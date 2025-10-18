@@ -1,0 +1,1 @@
+get-appxpackage *Microsoft.WindowsCalculator* | remove-appxpackage
