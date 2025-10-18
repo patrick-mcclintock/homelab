@@ -1,0 +1,1 @@
+Get-AppXPackage *WindowsCalculator* -AllUsers | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
