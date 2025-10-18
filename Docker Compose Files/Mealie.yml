@@ -1,0 +1,39 @@
+services:
+  mealie:
+    image: ghcr.io/mealie-recipes/mealie:latest
+    container_name: mealie
+    ports:
+        - "9925:9000"
+
+    deploy:
+      resources:
+        limits:
+          memory: 2000M
+
+    volumes:
+      - mealie-data:/app/data/
+    environment:
+    # Set Backend ENV Variables Here
+      - ALLOW_SIGNUP=false
+      - PUID=1000
+      - PGID=1000
+      - SMTP_HOST=
+      - SMTP_PORT=
+      - SMTP_FROM_NAME=
+      - SMTP_AUTH_STRATEGY=
+      - SMTP_FROM_EMAIL=
+      - SMTP_USER=
+      - SMTP_PASSWORD=
+      - TZ=America/Detroit
+
+      - LOG_LEVEL=debug
+
+
+      - MAX_WORKERS=24
+      - WEB_CONCURRENCY=1
+      - BASE_URL=
+    restart: always
+
+volumes:
+  mealie-data:
+    driver: local

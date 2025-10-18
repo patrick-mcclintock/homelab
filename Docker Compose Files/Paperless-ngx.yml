@@ -1,0 +1,42 @@
+services:
+  paperless:
+    image: ghcr.io/paperless-ngx/paperless-ngx:latest
+    container_name: paperless
+    restart: always
+    environment:
+      PAPERLESS_REDIS: redis://redis:6379
+      PAPERLESS_DBHOST: db
+      PAPERLESS_DBUSER: paperless
+      PAPERLESS_DBPASS: paperlesspassword
+      PAPERLESS_DBNAME: paperless
+            # Add your trusted origins (replace example.com with your domain)
+      PAPERLESS_URL: example.com
+    ports:
+      - 8910:8000
+    volumes:
+      - ./data/paperless_data:/usr/src/paperless/data
+      - ./data/paperless_media:/usr/src/paperless/media
+      - ./data/paperless_export:/usr/src/paperless/export
+      - ./data/paperless_consume:/usr/src/paperless/consume
+
+  db:
+    image: postgres:13
+    container_name: paperless-db
+    restart: always
+    environment:
+      POSTGRES_USER: paperless
+      POSTGRES_PASSWORD: paperlesspassword
+      POSTGRES_DB: paperless
+    volumes:
+      - ./data/paperless_db_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:alpine
+    container_name: paperless-redis
+    restart: always
+    volumes:
+      - ./data/redis_data:/data
+
+volumes:
+  postgres_data:
+  redis_data:
