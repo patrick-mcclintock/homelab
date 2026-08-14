@@ -19,13 +19,13 @@ function Write-Log {
 
 Write-Log "Script started."
 
-$Uninstaller = "C:\Program Files (x86)\ReNamer\unins000.exe /verysilent /suppressmsgboxes /norestart"
+$Uninstaller = "C:\Program Files (x86)\ReNamer\unins000.exe"
 
 if (Test-Path $Uninstaller) {
     Write-Log "Found uninstaller. Starting ReNamer uninstallation..."
     
     # Run uninstaller silently and wait for it to complete
-    Start-Process -FilePath $Uninstaller -ArgumentList "/S" -Wait
+    Start-Process -FilePath $Uninstaller -ArgumentList "/verysilent /suppressmsgboxes /norestart" -Wait
     
     Write-Log "Uninstallation process finished."
 } else {
